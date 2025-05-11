@@ -1,0 +1,27 @@
+# traefik.yml
+
+# API and dashboard settings (for monitoring, can be disabled in production)
+api:
+  insecure: true
+  dashboard: true
+
+# Define entry points (ports Traefik listens on)
+entryPoints:
+  web:
+    address: ":80"       # HTTP entry point
+  websecure:
+    address: ":443"      # HTTPS entry point
+
+# Configure the Docker provider (to read from Docker services)
+providers:
+  docker:
+    exposedByDefault: false  # Don't expose all services by default
+
+# Enable ACME (Let's Encrypt) for automatic SSL certificate generation (optional)
+certificatesResolvers:
+  http:
+    acme:
+      email: mugishaprinc3@gmail.com  # Replace with your email
+      storage: /letsencrypt/acme.json
+      httpChallenge:
+        entryPoint: web
